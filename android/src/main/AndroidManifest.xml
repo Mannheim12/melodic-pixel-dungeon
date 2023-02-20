@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="com.shatteredpixel.shatteredpixeldungeon.android"
+	package="com.mannheim.melodicpixeldungeon.android"
 	android:installLocation="auto"
 	android:targetSandboxVersion="2"
 	xmlns:dist="http://schemas.android.com/apk/distribution">
@@ -31,9 +31,9 @@
 		android:resizeableActivity="true"
 		android:allowBackup="true"
 		android:fullBackupOnly="true"
-		android:backupAgent=".AndroidBackupHandler">
+		android:backupAgent="com.mannheim.melodicpixeldungeon.android.AndroidBackupHandler">
 		<activity
-			android:name=".AndroidLauncher"
+			android:name="com.mannheim.melodicpixeldungeon.android.AndroidLauncher"
 			android:screenOrientation="nosensor"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
 			android:exported="true">
@@ -43,7 +43,7 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".AndroidMissingNativesHandler">
+			android:name="com.mannheim.melodicpixeldungeon.android.AndroidMissingNativesHandler">
 		</activity>
 
 	</application>
