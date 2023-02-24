@@ -86,6 +86,8 @@ import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.mannheim.melodicpixeldungeon.items.songs.Song;
+import com.mannheim.melodicpixeldungeon.items.songs.SongOfLullaby;
 import com.mannheim.melodicpixeldungeon.items.stones.Runestone;
 import com.mannheim.melodicpixeldungeon.items.stones.StoneOfFear;
 import com.mannheim.melodicpixeldungeon.items.stones.StoneOfAggression;
@@ -206,6 +208,8 @@ public class Generator {
 		SEED	( 1, 1, Plant.Seed.class ),
 		
 		SCROLL	( 8, 8, Scroll.class ),
+
+		SONG (0, 1,Song.class),
 		STONE   ( 1, 1, Runestone.class),
 		
 		GOLD	( 10, 10,   Gold.class );
@@ -300,6 +304,12 @@ public class Generator {
 			};
 			SCROLL.defaultProbs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
 			SCROLL.probs = SCROLL.defaultProbs.clone();
+
+			SONG.classes = new Class<?>[]{
+					SongOfLullaby.class
+			};
+			SONG.defaultProbs = new float[]{1};
+			SONG.probs = SONG.defaultProbs.clone();
 			
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
@@ -539,6 +549,10 @@ public class Generator {
 				Item item = randomArtifact();
 				//if we're out of artifacts, return a ring instead.
 				return item != null ? item : random(Category.RING);
+			case SONG:
+				Item item2 = randomSong();
+				//if out of songs, return a scroll instead
+				return item2 != null ? item2 : random(Category.SCROLL);
 			default:
 				if (cat.defaultProbs != null && cat.seed != null){
 					Random.pushGenerator(cat.seed);
@@ -562,9 +576,9 @@ public class Generator {
 	}
 
 	//overrides any deck systems and always uses default probs
-	// except for artifacts, which must always use a deck
+	// except for artifacts, (AND SONGS) which must always use a deck
 	public static Item randomUsingDefaults( Category cat ){
-		if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
+		if (cat.defaultProbs == null || cat == Category.ARTIFACT || cat == Category.SONG) {
 			return random(cat);
 		} else {
 			return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbs)])).random();
@@ -659,10 +673,43 @@ public class Generator {
 
 	}
 
+	public static Song randomSong() {
+		Category cat = Category.SONG;
+		if (cat.defaultProbs != null && cat.seed != null) {
+			Random.pushGenerator(cat.seed);
+			for (int i = 0; i < cat.dropped; i++) Random.Long();
+		}
+		int i = Random.chances(cat.probs);
+
+		if (cat.defaultProbs != null && cat.seed != null) {
+			Random.popGenerator();
+			cat.dropped++;
+		}
+
+		//if no songs left, return null
+		if (i == -1) {
+			return null;
+		}
+
+		cat.probs[i]--;
+		return (Song) Reflection.newInstance((Class<? extends  Song>) cat.classes[i]).random();
+	}
+
 	public static boolean removeArtifact(Class<?extends Artifact> artifact) {
 		Category cat = Category.ARTIFACT;
 		for (int i = 0; i < cat.classes.length; i++){
 			if (cat.classes[i].equals(artifact) && cat.probs[i] > 0) {
+				cat.probs[i] = 0;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean removeSong(Class<? extends Song> song) {
+		Category cat = Category.SONG;
+		for (int i = 0; i < cat.classes.length; i++){
+			if (cat.classes[i].equals(song) && cat.probs[i] > 0) {
 				cat.probs[i] = 0;
 				return true;
 			}

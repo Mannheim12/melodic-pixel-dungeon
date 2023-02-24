@@ -46,6 +46,7 @@ import com.mannheim.melodicpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.mannheim.melodicpixeldungeon.items.potions.Potion;
 import com.mannheim.melodicpixeldungeon.items.rings.Ring;
 import com.mannheim.melodicpixeldungeon.items.scrolls.Scroll;
+import com.mannheim.melodicpixeldungeon.items.songs.Song;
 import com.mannheim.melodicpixeldungeon.items.wands.WandOfRegrowth;
 import com.mannheim.melodicpixeldungeon.items.wands.WandOfWarding;
 import com.mannheim.melodicpixeldungeon.journal.Notes;
@@ -226,6 +227,7 @@ public class Dungeon {
 		Random.pushGenerator( seed+1 );
 
 			Scroll.initLabels();
+			Song.initNames();
 			Potion.initColors();
 			Ring.initGems();
 
@@ -591,6 +593,7 @@ public class Dungeon {
 			Generator.storeInBundle( bundle );
 			
 			Scroll.save( bundle );
+			Song.save( bundle );
 			Potion.save( bundle );
 			Ring.save( bundle );
 
@@ -664,6 +667,7 @@ public class Dungeon {
 		Dungeon.depth = -1;
 		
 		Scroll.restore( bundle );
+		Song.restore( bundle );
 		Potion.restore( bundle );
 		Ring.restore( bundle );
 

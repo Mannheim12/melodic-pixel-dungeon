@@ -28,6 +28,7 @@ import com.mannheim.melodicpixeldungeon.items.armor.ClassArmor;
 import com.mannheim.melodicpixeldungeon.items.potions.Potion;
 import com.mannheim.melodicpixeldungeon.items.rings.Ring;
 import com.mannheim.melodicpixeldungeon.items.scrolls.Scroll;
+import com.mannheim.melodicpixeldungeon.items.songs.Song;
 import com.mannheim.melodicpixeldungeon.journal.Catalog;
 import com.mannheim.melodicpixeldungeon.journal.Document;
 import com.mannheim.melodicpixeldungeon.journal.Notes;
@@ -52,7 +53,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import javax.print.Doc;
+//import javax.print.Doc;
 
 public class WndJournal extends WndTabbed {
 	
@@ -443,7 +444,7 @@ public class WndJournal extends WndTabbed {
 	private static class CatalogTab extends Component{
 		
 		private RedButton[] itemButtons;
-		private static final int NUM_BUTTONS = 7;
+		private static final int NUM_BUTTONS = 8;
 		
 		private static int currentItemIdx   = 0;
 		
@@ -455,8 +456,10 @@ public class WndJournal extends WndTabbed {
 		private static final int ARTIF_IDX  = 4;
 		private static final int POTION_IDX = 5;
 		private static final int SCROLL_IDX = 6;
+
+		private static final int SONG_IDX = 7;
 		
-		private static final int spriteIndexes[] = {1, 2, 4, 5, 6, 9, 11};
+		private static final int spriteIndexes[] = {1, 2, 4, 5, 6, 9, 11, 11};
 
 		private ScrollingListPane list;
 		
@@ -534,7 +537,11 @@ public class WndJournal extends WndTabbed {
 			} else if (currentItemIdx == SCROLL_IDX) {
 				itemClasses = new ArrayList<>(Catalog.SCROLLS.items());
 				for (Class<? extends Item> cls : itemClasses) known.put(cls, Scroll.getKnown().contains(cls));
-			} else {
+			} else if (currentItemIdx == SONG_IDX) {
+				itemClasses = new ArrayList<>(Catalog.SONGS.items());
+				for (Class<? extends Item> cls : itemClasses) known.put(cls, Song.getKnown().contains(cls));
+			}
+			else {
 				itemClasses = new ArrayList<>();
 			}
 			
@@ -564,6 +571,8 @@ public class WndJournal extends WndTabbed {
 						((Potion) item).anonymize();
 					} else if (item instanceof Scroll){
 						((Scroll) item).anonymize();
+					} else if (item instanceof Song) {
+						((Song) item).anonymize();
 					}
 				}
 				ScrollingListPane.ListItem listItem = new ScrollingListPane.ListItem(

@@ -33,6 +33,7 @@ import com.mannheim.melodicpixeldungeon.items.potions.Potion;
 import com.mannheim.melodicpixeldungeon.items.quest.CorpseDust;
 import com.mannheim.melodicpixeldungeon.items.rings.Ring;
 import com.mannheim.melodicpixeldungeon.items.scrolls.Scroll;
+import com.mannheim.melodicpixeldungeon.items.songs.Song;
 import com.mannheim.melodicpixeldungeon.journal.Notes;
 import com.mannheim.melodicpixeldungeon.messages.Messages;
 import com.mannheim.melodicpixeldungeon.ui.QuickSlotButton;
@@ -283,6 +284,7 @@ public enum Rankings {
 		//save handler information
 		Bundle handler = new Bundle();
 		Scroll.saveSelectively(handler, belongings.backpack.items);
+		Song.saveSelectively(handler, belongings.backpack.items);
 		Potion.saveSelectively(handler, belongings.backpack.items);
 		//include potentially worn rings
 		if (belongings.misc != null)        belongings.backpack.items.add(belongings.misc);
@@ -318,6 +320,7 @@ public enum Rankings {
 
 		Bundle handler = data.getBundle(HANDLERS);
 		Scroll.restore(handler);
+		Song.restore(handler);
 		Potion.restore(handler);
 		Ring.restore(handler);
 

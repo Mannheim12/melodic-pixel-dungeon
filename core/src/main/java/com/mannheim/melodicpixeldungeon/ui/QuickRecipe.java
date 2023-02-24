@@ -51,6 +51,7 @@ import com.mannheim.melodicpixeldungeon.items.potions.elixirs.ElixirOfToxicEssen
 import com.mannheim.melodicpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.mannheim.melodicpixeldungeon.items.scrolls.Scroll;
 import com.mannheim.melodicpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.mannheim.melodicpixeldungeon.items.songs.Song;
 import com.mannheim.melodicpixeldungeon.items.spells.Alchemize;
 import com.mannheim.melodicpixeldungeon.items.spells.AquaBlast;
 import com.mannheim.melodicpixeldungeon.items.spells.ArcaneCatalyst;
@@ -193,6 +194,8 @@ public class QuickRecipe extends Component {
 			((Potion) item).anonymize();
 		} else if (item instanceof Scroll){
 			((Scroll) item).anonymize();
+		} else if (item instanceof Song) {
+			((Song) item).anonymize();
 		}
 	}
 	

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.mannheim.melodicpixeldungeon.items.scrolls;
+package com.mannheim.melodicpixeldungeon.items.songs;
 
 import com.mannheim.melodicpixeldungeon.Assets;
 import com.mannheim.melodicpixeldungeon.Dungeon;
@@ -31,15 +31,19 @@ import com.mannheim.melodicpixeldungeon.messages.Messages;
 import com.mannheim.melodicpixeldungeon.sprites.ItemSpriteSheet;
 import com.mannheim.melodicpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 
-public class ScrollOfLullaby extends Scroll {
+public class SongOfLullaby extends Song {
 
 	{
+		//icon = the small image in the top right corner
 		icon = ItemSpriteSheet.Icons.SCROLL_LULLABY;
+		tier = 1;
 	}
 
 	@Override
-	public void doRead() {
+	public void doPlay() {
+		collect();
 		curUser.sprite.centerEmitter().start( Speck.factory( Speck.NOTE ), 0.3f, 5 );
 		Sample.INSTANCE.play( Assets.Sounds.LULLABY );
 
@@ -56,10 +60,27 @@ public class ScrollOfLullaby extends Scroll {
 
 		identify();
 		readAnimation();
+		//collect();
 	}
 	
 	@Override
 	public int value() {
 		return isKnown() ? 40 * quantity : super.value();
+	}
+
+	//discord told me to add this?
+	private static final String TIER = "tier";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(TIER, tier);
+	}
+
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		tier = bundle.getInt(TIER);
 	}
 }

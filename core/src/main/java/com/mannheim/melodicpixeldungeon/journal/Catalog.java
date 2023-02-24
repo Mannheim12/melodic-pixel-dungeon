@@ -40,7 +40,8 @@ public enum Catalog {
 	RINGS,
 	ARTIFACTS,
 	POTIONS,
-	SCROLLS;
+	SCROLLS,
+	SONGS;
 	
 	private LinkedHashMap<Class<? extends Item>, Boolean> seen = new LinkedHashMap<>();
 	
@@ -96,6 +97,10 @@ public enum Catalog {
 
 		for (Class scroll : Generator.Category.SCROLL.classes){
 			SCROLLS.seen.put( scroll, false);
+		}
+
+		for (Class song : Generator.Category.SONG.classes){
+			SONGS.seen.put( song, false);
 		}
 
 	}

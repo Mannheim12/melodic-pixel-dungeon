@@ -155,6 +155,7 @@ public class Bones {
 				if (item == null) return null;
 
 				//Enforces artifact uniqueness
+				//TODO enforce song uniqueness here?
 				if (item instanceof Artifact){
 					if (Generator.removeArtifact(((Artifact)item).getClass())) {
 						

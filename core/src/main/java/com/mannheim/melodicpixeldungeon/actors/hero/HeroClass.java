@@ -41,8 +41,12 @@ import com.mannheim.melodicpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.mannheim.melodicpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.mannheim.melodicpixeldungeon.items.BrokenSeal;
 import com.mannheim.melodicpixeldungeon.items.Item;
+import com.mannheim.melodicpixeldungeon.items.MerchantsBeacon;
+import com.mannheim.melodicpixeldungeon.items.TengusMask;
 import com.mannheim.melodicpixeldungeon.items.Waterskin;
 import com.mannheim.melodicpixeldungeon.items.armor.ClothArmor;
+import com.mannheim.melodicpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.mannheim.melodicpixeldungeon.items.artifacts.CapeOfThorns;
 import com.mannheim.melodicpixeldungeon.items.artifacts.CloakOfShadows;
 import com.mannheim.melodicpixeldungeon.items.bags.VelvetPouch;
 import com.mannheim.melodicpixeldungeon.items.food.Food;
@@ -55,6 +59,8 @@ import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfRage;
 import com.mannheim.melodicpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.mannheim.melodicpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
+import com.mannheim.melodicpixeldungeon.items.songs.SongOfLullaby;
 import com.mannheim.melodicpixeldungeon.items.wands.WandOfMagicMissile;
 import com.mannheim.melodicpixeldungeon.items.weapon.SpiritBow;
 import com.mannheim.melodicpixeldungeon.items.weapon.melee.Dagger;
@@ -65,6 +71,8 @@ import com.mannheim.melodicpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.mannheim.melodicpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.mannheim.melodicpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
+
+import com.mannheim.melodicpixeldungeon.items.weapon.instrument.Flute; //TODO remove this after testing
 
 public enum HeroClass {
 
@@ -123,6 +131,13 @@ public enum HeroClass {
 			}
 		}
 
+		//TODO remove this stuff after testing
+		//new Flute().collect();
+		new TengusMask().collect();
+		new ScrollOfDivination().collect();
+		//new SongOfLullaby().collect();
+		new CapeOfThorns().collect();
+		new ScrollOfLullaby().collect();
 	}
 
 	public Badges.Badge masteryBadge() {
